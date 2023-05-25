@@ -19,8 +19,12 @@ class Login_LogoutController extends Controller
         $validator = Validator::make($request->all(), [
             'phone' => 'required_without:email|string',
             'email' => 'required_without:phone|email|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
+
         ]);
+        if($validator->fails()){
+            return $this->returnError($validator->errors(),'Login Error');
+        }
          if (Auth::attempt([
                 'phone' => $request['phone'],
                 'password' => $request['password']

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -50,7 +51,18 @@ class RegisterController extends Controller
                 'image' => $imagePath,
 
             ]);
-                     return $this->returnData('CreatUser Successfully',[$user->only('first_name','image','email','phone','birth_date')]);
+
+            // إنشاء توكن جديد للمستخدم
+            $token = $user->createToken('Token Name')->plainTextToken;
+            
+            // إرجاع الرد المناسب مع التوكن الجديد
+            return $this->returnData('CreatUser Successfully', [
+                'user' => $user->only('first_name', 'image', 'email', 'phone', 'birth_date'),
+                'token' => $token,
+            ]);
+            
+
+                 //    return $this->returnData('CreatUser Successfully',[$user->only('first_name','image','email','phone','birth_date')]);
 
         } catch (\Throwable $th) {
             return response()->json([

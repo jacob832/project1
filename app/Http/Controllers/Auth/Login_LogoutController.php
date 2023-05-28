@@ -20,6 +20,7 @@ class Login_LogoutController extends Controller
             'phone' => 'required_without:email|string',
             'email' => 'required_without:phone|email|string',
             'password' => 'required|string',
+            
 
         ]);
         if($validator->fails()){
@@ -36,7 +37,8 @@ class Login_LogoutController extends Controller
                 // Authentication successful
                 $user = Auth::user();
                 $token = $user->createToken('auth_token')->plainTextToken;
-                return $this->returnData('Hello '.auth()->user()->first_name,['token'=>$token,'id'=>auth()->user()->id]);
+                return $this->returnData('Hello '.auth()->user()->first_name,['user' => $user->only('first_name', 'image', 'email', 'phone', 'birth_date'),
+                'token' => $token,'id'=>auth()->user()->id]);
             }
             else
           {

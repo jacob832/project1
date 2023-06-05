@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use Laravel\Sanctum\PersonalAccessToken;
-use Laravel\Sanctum\Sanctum;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,8 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-
         Schema::defaultStringLength(191);
+        Validator::extend('phone_number', function ($attribute, $value, $parameters, $validator) {
+            return preg_match('/^(\+?\d{1,3}[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/', $value);
+        });
+
+        Validator::replacer('phone_number', function ($message, $attribute, $rule, $parameters, $validator) {
+            return str_replace(':attribute', $attribute, 'The '.$attribute.' field is not a valid phone number.');
+        });
     }
 }

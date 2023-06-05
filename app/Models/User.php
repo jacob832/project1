@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,16 +20,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'password',
+        'name',
         'gender',
-        'image',
-        'birth_date',
-        'email_verified_at',
-        'phone_verified_at',
+        'password',
+        'phone_number',
+        'birth',
+        'gender',
+        'image'
     ];
 
     /**
@@ -47,6 +46,41 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
     ];
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function wishList()
+    {
+        return $this->hasOne(WishList::class);
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            if($user->role&&$user->role->name=='customer')
+                $user->cart()->create();
+                $user->wishList()->create();
+        });
+    }
+    
 }

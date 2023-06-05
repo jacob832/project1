@@ -194,9 +194,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Ichtrojan\Otp\OtpServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
 
     ],
 
@@ -213,9 +210,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Otp' => Ichtrojan\Otp\Otp::class,
-        'Excel' =>Maatwebsite\Excel\Facades\Excel::class,
-
     ])->toArray(),
 
 ];

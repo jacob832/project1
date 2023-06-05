@@ -13,24 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) 
-        {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone')->unique()->nullable();
-            $table->enum('gender',['male','female','other'])->nullable();
-            $table->string('image')->nullable();
-            $table->string('birth_date')->date_format('Y-m-d')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('phone_verified_at')->nullable();
+            $table->foreignId('role_id')->default(2)->constrained();
+            $table->string('name');
+            $table->enum('gender',['male','female'])->nullable();
             $table->string('password');
-            
+            $table->string('phone_number')->unique();
+            $table->string('birth')->date_format('d-m-Y')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-}
+    }
 
     /**
      * Reverse the migrations.

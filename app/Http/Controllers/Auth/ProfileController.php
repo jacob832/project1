@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Auth\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -20,14 +19,13 @@ class ProfileController extends Controller
 
         $validateUser=Validator::make($request->all(), 
         [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' =>  ['required', 'string', 'max:255'],
-            'email' =>      ['required', 'string', 'email', 'max:255'],
-            'password' =>   ['required', 'string', 'min:8'],
-            'phone' =>      ['nullable', 'string', 'max:20'],
-            'gender'=>      ['nullable','string','max:10'],
-            'birth_date' => ['nullable','date'],
-            'image' =>      ['nullable', 'image', 'max:2048'],
+                'name' =>                  ['required', 'string', 'max:255'],
+                'password' =>              ['required', 'string', 'min:6'],
+                'password_confirmation' => ['required_with:password','same:password'],               
+                'phone_number'=>           ['required','string', 'max:20','unique:users'],
+                'gender'=>                 ['nullable','string','max:10'],
+                'birth' =>                 ['nullable','date'],
+                'image' =>                 ['nullable', 'image', 'max:2048'],
 
         ]);
         if($validateUser->fails()){
@@ -39,19 +37,16 @@ class ProfileController extends Controller
             $imagePath = str_replace('public/', '', $imagePath);
         }
         $user = Auth::user(); // get the currently authenticated user
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->password= Hash::make($request->password);
-        $user->phone= $request->input('phone');
-        $user->gender= $request->input('gender');
-        $user->email = $request->input('email');
-        $user->birth_date= $request->input('birth_date');
-        $user->birth_date= $request->input('birth_date');
-        $user->image=$imagePath;
+        $user->name           = $request->input('name');
+        $user->password       = Hash::make($request->password);
+        $user->phone_number   = $request->input('phone_number');
+        $user->gender         = $request->input('gender');
+        $user->birth          = $request->input('birth');
+        $user->image          = $imagePath;
         $user->save();
         return $this->returnSuccessMessage('Modified successfully');
         }
-       
+            
 
     
 }

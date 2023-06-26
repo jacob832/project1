@@ -2,85 +2,45 @@
 
 namespace App\Http\Controllers;
 
+//use App\Models\User;
+use App\Models\User;
 use App\Models\Address;
+use App\Http\Traits\GeneralTrait;
+
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAddressRequest;
-use App\Http\Requests\UpdateAddressRequest;
+//use App\Http\Requests\UpdateAddressRequest;
 
 class AddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+use GeneralTrait;
+    
+public function insert_address(StoreAddressRequest $request)
+{
+    $user = Auth::user();
+    if(!$user){
+        return $this->returnError('','Error in insert');
     }
+    $address = new Address([
+        'street_address' => $request->input('street_address'),
+        'area' => $request->input('area'),
+        'city' => $request->input('city')
+    ]);
+    $user->address()->save($address);
+        return $this->returnSuccessMessage('تمت اضافة العنوان بنجاح');
+    }
+   public function get_address()
+        {
+            $user = Auth::user();
+            if (!$user) {
+                return $this->returnError('', 'User not found');
+            } else {
+                $address = $user->address;
+                return $this->returnData('تم جلب العنوان بنجاح',$address);
+            }
+       
+        }
+    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAddressRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAddressRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAddressRequest  $request
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAddressRequest $request, Address $address)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Address $address)
-    {
-        //
-    }
-}

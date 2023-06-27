@@ -10,6 +10,7 @@ class Category extends Model
     use HasFactory;
     protected $fillable=[
         'name',
+
     ];
 
     public function parent()
@@ -21,5 +22,6 @@ class Category extends Model
     {
         return $this->hasMany(Category::class,'parent_id');
     }
+    
     
 }

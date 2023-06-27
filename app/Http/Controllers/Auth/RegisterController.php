@@ -8,7 +8,7 @@ use App\Http\Traits\GeneralTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Http\Response;
 class RegisterController extends Controller
 {
     use GeneralTrait;
@@ -46,7 +46,7 @@ class RegisterController extends Controller
                         return $this->returnData('CreatUser Successfully', [
                 'user' => $user->only('name', 'image', 'phone_number', 'birth'),
                 'token' => $token,
-            ]);
+            ],Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

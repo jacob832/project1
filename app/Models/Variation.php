@@ -15,6 +15,10 @@ protected $fillable=
     'quantity',
     'size',
 ];
+public function discount()
+    {
+        return $this->hasMany(Discount::class);
+    }
 
     public function products()
     {
@@ -22,9 +26,8 @@ protected $fillable=
     }
     public function color()
     {
-        return $this->belongsTo(Color::class);
+        return$this->belongsTo(Color::class);
     }
-
     public function carts()
     {
         return $this->belongsToMany(Cart::class,'cart_items');
@@ -34,10 +37,7 @@ protected $fillable=
     {
         return $this->hasMany(CartItems::class);
     }
-    public function discount()
-    {
-        return $this->hasMany(Discount::class);
-    }
+    
     public function images()
     {
         return $this->hasMany(Image::class);

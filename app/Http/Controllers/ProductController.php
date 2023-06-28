@@ -14,6 +14,9 @@ class ProductController extends Controller
 {
     $categories = Category::where('parent_id', $parent_id)->get();
     $products = Product::whereIn('category_id', $categories->pluck('parent_id'))->paginate(10);
+    if ($products->isEmpty()) {
+        return $this->returnError('No Products Found',null,404);
+    }
     return $this->returnData('',$products);
 
 }

@@ -13,7 +13,7 @@ class StoreCartRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreCartRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'variation_id' => 'required|exists:variations,id',
+            'quantity' => 'required|integer|min:1',
         ];
     }
 }

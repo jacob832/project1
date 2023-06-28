@@ -15,6 +15,10 @@ class ColorController extends Controller
             $query->where('id', $variation_id);
         })->get();
         
+    if ($colors->isEmpty()) {
+        return $this->returnError('No Colors Found', null, 404);
+    }
+        else
         return $this->returnData('',$colors);
     }
     

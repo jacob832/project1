@@ -14,7 +14,9 @@ class VariationController extends Controller
     {
         $product = Product::find($id);
         $variations = $product->variations;
+        if ($variations->isEmpty()) {
+            return $this->returnError('No Variations Found',null,404);
+        }
         return $this->returnData('',$variations);
-//        return response()->json(['variations' => $variations]);
     }
 }

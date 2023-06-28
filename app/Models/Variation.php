@@ -16,10 +16,13 @@ protected $fillable=
     'size',
 ];
 
-    
+    public function products()
+    {
+       return $this->belongsTo(Product::class);
+    }
     public function color()
     {
-        $this->belongsTo(Color::class);
+        return $this->belongsTo(Color::class);
     }
 
     public function carts()

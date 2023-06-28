@@ -9,20 +9,13 @@ use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
 {
-    use GeneralTrait;
-    public function get_product(Request $request, $category_id)
-    {
-        // Find the category by ID
-        $category = Category::findOrFail($category_id);
+    use GeneralTrait;       // Find the category by ID
+        public function get_product($parent_id)
+{
+    $categories = Category::where('parent_id', $parent_id)->get();
+    $products = Product::whereIn('category_id', $categories->pluck('parent_id'))->paginate(10);
+    return $this->returnData('',$products);
 
-        // Retrieve all products for the category
-        $products = $category->products;
+}
 
-        // Return the products
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Products retrieved successfully',
-            'data' => $products,
-        ]);
-
-}}
+}

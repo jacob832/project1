@@ -12,6 +12,6 @@ class Color extends Model
 
     public function variations()
     {
-        $this->hasMany(Variation::class);
+       return $this->hasMany(Variation::class);
     }
 }

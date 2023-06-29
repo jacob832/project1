@@ -30,10 +30,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('insert_addresses', [AddressController::class,'insert_address']);
     Route::get('get_address',       [AddressController::class,'get_address']);
     Route::put('update_profile',    [ProfileController::class,'updateProfile']);
-  //  Route::post('add_product',      [ProductController::class,'addProduct']);
     Route::post('add_to_cart',[CartController::class,'store']);
     Route::get('show_cart_items',[CartController::class,'index']);
-    Route::post('delete_item/{id}',[CartController::class,'destroy']);
+    Route::post('delete_item/{cartItemId}',[CartController::class,'destroy']);
     });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

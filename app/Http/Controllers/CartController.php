@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\CartItems;
 use App\Models\Variation;
+use Illuminate\Http\Request;
+use App\Http\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
-use App\Http\Traits\GeneralTrait;
 
 class CartController extends Controller
 {
     use GeneralTrait;
-    
+
     /**
      * Display the items in the user's cart.
      *
@@ -21,25 +23,19 @@ class CartController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $cart = $user->cart;
-        $items = $cart->items;
-        if(!$items){
-            return $this->returnError('','No thing');
+        if (!$cart) {
+            $cart = Cart::create(['user_id' => $user->id]);
         }
-        return $this->returnData('items cart',$items);
-        
-    
+        $cartItems = $cart->items;
+        $totalPrice = $cartItems->sum('price');
+        return $this->returnData('Cart retrieved successfully', [
+            'cartItems' => $cartItems,
+            'totalPrice' => $totalPrice,
+        ]);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -49,62 +45,45 @@ class CartController extends Controller
      */
     public function store(StoreCartRequest $request)
     {
-        $user = Auth::user();
-        $cart = $user->cart;
-        if (!$cart) {
-            $cart = new Cart();
-            $cart->user_id = $user->id;
-            $cart->save();
-        }
-        $variation = Variation::find($request->variation_id);
-        $price = $variation->price;
-        $quantity = $request->quantity;
-        $cartItem = $cart->items()->where('variation_id', $variation->id)->first();
+        $cart = auth()->user()->cart;
+        $variation = Variation::findOrFail($request->variation_id);
+        $item = $cart->items()->where('variation_id', $variation->id)->first();
 
-        if ($quantity > $variation->quantity) {
-            return $this->returnError('','Failed to add product to cart. Quantity requested is greater than available quantity.');
-        }
-        if ($cartItem) {
-            $cartItem->quantity += $quantity;
-            $cartItem->save();
+        // Check if the quantity is greater than zero and less than or equal to the quantity in the Variation table
+        if ($request->quantity > 0 && $request->quantity <= $variation->quantity) {
+
+            if ($item) {
+                // If the item already exists in the cart, update the quantity and price
+                $item->quantity += $request->quantity;
+                $item->price = $item->quantity * $variation->price;
+                $item->save();
+            } else {
+                // If the item doesn't exist in the cart, create a new item
+                $item = new CartItems([
+                    'quantity' => $request->quantity,
+                    'price' => $request->quantity * $variation->price,
+                    'variation_id' => $request->variation_id,
+                ]);
+                $cart->items()->save($item);
+            }
+
+            
+            $cartItems = $cart->items;
+            $totalPrice = $cartItems->sum('price');
+            // Update the quantity of the product in the Variation table
+            $variation->decrement('quantity', $request->quantity);
+
+            return $this->returnData('Product added to cart successfully', [
+                'cartItems' => $cartItems,
+                'totalPrice' => $totalPrice,
+            ]);
         } else {
-            $cartItem = new CartItems();
-            $cartItem->cart_id = $cart->id;
-            $cartItem->variation_id = $variation->id;
-            $cartItem->price = $price;
-            $cartItem->quantity = $quantity;
-            $cartItem->save();
+            // Return error message if the quantity is not valid
+            return $this->returnError(
+                'Quantity Error',
+                'Failed to add product to cart. The quantity requested is greater than the available quantity.'
+            );
         }
-        $variation->decrement('quantity', $quantity);
-         if (!$cartItem) {
-            return $this->returnError('','Failed to add product to cart');
-        }
-        else  
-            return $this->returnData('Product added to cart successfully',$cartItem);
-
-    }
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
     }
 
     /**
@@ -114,33 +93,61 @@ class CartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCartRequest $request, Cart $cart)
-    {
-        //
-    }
+   
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\CartItems  $item
      * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $user = Auth::user();
-    $cart = $user->cart;
-    $item = CartItems::find($id);
+            */
+           
+            
+            public function destroy($id)
+            {
+                $item = CartItems::findOrFail($id);
+        
+                // Update the quantity of the product in the Variation table
+                $item->variation->increment('quantity', $item->quantity);
+        
+                // Delete the item from the cart
+                $item->delete();
+        
+                $cart = auth()->user()->cart;
+                $cartItems = $cart->items;
+                $totalPrice = $cartItems->sum('price');
+                return $this->returnData('Cart item deleted successfully', [
+                    'cartItems' => $cartItems,
+                    'totalPrice' => $totalPrice,
+                ]);
+            }
 
-    if (!$cart || !$item || $item->cart_id != $cart->id) {
-        return response()->json(['message' => 'Failed to remove item from cart']);
-    }
-
-    $variation = $item->variation;
-    if ($variation) {
-        $variation->increment('quantity', $item->quantity);
-    }
-    $item->delete();
-
-    return response()->json(['message' => 'Item removed from cart successfully']);
-    }
+            /*public function destroy(Cart $cart, Product $product)
+            {
+                // Check if the product exists in the cart
+                $item = $cart->items()->where('variation_id', $product->default_variation_id)->first();
+                if (!$item) {
+                    return $this->returnError(
+                        'Item not found',
+                        'Failed to remove item from cart. The item does not exist in the cart.'
+                    );
+                }
+            
+                // Update the quantity of the product in the Variation table
+                $variation = $item->variation;
+                $variation->increment('quantity', $item->quantity);
+            
+                // Remove the item from the cart
+                $item->delete();
+            
+                $cartItems = $cart->items;
+                $totalPrice = $cartItems->sum('price');
+            
+                return $this->returnData('Product removed from cart successfully', [
+                    'cartItems' => $cartItems,
+                    'totalPrice' => $totalPrice,
+                ]);
+            }*/
 }
+

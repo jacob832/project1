@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
             $table->foreignId('variation_id')->constrained('variations')->cascadeOnDelete();
             $table->double('price')->unsigned();
+            
             $table->unsignedBigInteger('quantity');
             $table->timestamps();
         });

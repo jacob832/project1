@@ -12,12 +12,14 @@ class CartItems extends Model
     [
         'price',
         'quantity',
+        'variation_id'
+        
     ];
     public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
-    public function variations()
+    public function variation()
     {
         return $this->belongsTo(Variation::class);
     }

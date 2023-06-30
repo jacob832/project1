@@ -14,7 +14,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,8 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-        
+            'name' => 'required_without:description|string|max:255',
+            'description' => 'required_without:name|string',
         ];
     }
    

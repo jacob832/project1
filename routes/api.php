@@ -22,9 +22,10 @@ Route::get('show_variation/{id}',[VariationController::class,'show']);
 Route::get('show_color/{variation_id}',[ColorController::class,'show']);
 Route::get('show_images/{id}',[ImageController::class,'showProductImages']);
 Route::get('get_discounts/{id}',[DiscountController::class,'getDiscounts']);
-//Route::post('passwordreset',[ForgetPasswordController::class,'sendResetLink']);
-//Route::post('password/reset/verify',[ForgetPasswordController::class,'resetPassword']);
+Route::get('search',[ProductController::class,'search']);
+Route::get('filter',[VariationController::class,'filter']);
 
+//////////////////////////////////////////////////////////////
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('logout',           [Login_LogoutController::class,'logout']);
     Route::post('insert_addresses', [AddressController::class,'insert_address']);

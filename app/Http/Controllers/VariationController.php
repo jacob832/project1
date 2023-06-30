@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\GeneralTrait;
 use App\Models\Product;
 use App\Models\Variation;
+use App\Http\Traits\GeneralTrait;
+use App\Http\Requests\StoreVariationRequest;
 
 
 class VariationController extends Controller
@@ -19,4 +20,42 @@ class VariationController extends Controller
         }
         return $this->returnData('',$variations);
     }
+ 
+    public function filter(StoreVariationRequest $request)
+    {
+        $products = Product::with(['variations' => function ($query) use ($request) {
+            if ($request->has('price')) {
+                $query->where('price', $request->price);
+            }
+            if ($request->has('size')) {
+                $query->where('size', $request->size);
+            }
+        }]);
+        
+        if ($request->has('color')) {
+            $products->whereHas('variations.color', function ($query) use ($request) {
+                $query->where('name', $request->color);
+            });
+        }
+        
+        if ($request->has('price')) {
+            $products->whereHas('variations', function ($query) use ($request) {
+                $query->where('price', $request->price);
+            });
+        }
+        
+        if ($request->has('size')) {
+            $products->whereHas('variations', function ($query) use ($request) {
+                $query->where('size', $request->size);
+            });
+        }
+        $products = $products->get();
+        if ($products->isEmpty()) {
+            return $this->returnError('Not Found Products',null,404);
+        }
+        return $this->returnData('',$products);
+
+       
+    }
+
 }

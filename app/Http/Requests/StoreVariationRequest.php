@@ -13,7 +13,7 @@ class StoreVariationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreVariationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'price' => ['nullable', 'numeric'],
+            'color' => ['nullable', 'exists:colors,name'],
+            'size' => ['nullable', 'in:S,M,L,XL,XXL'],
+
         ];
     }
 }

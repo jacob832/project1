@@ -47,7 +47,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+    public function wishList()
+    {
+        return $this->hasOne(WishList::class);
+    }    
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -68,10 +71,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
-    public function wishList()
-    {
-        return $this->hasOne(WishList::class);
-    }
+    
     protected static function boot()
     {
         parent::boot();

@@ -13,7 +13,7 @@ class StoreWishListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreWishListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'product_id' => 'required|exists:variations,id'
+
         ];
     }
 }

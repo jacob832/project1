@@ -10,18 +10,17 @@ use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
-    use GeneralTrait;       // Find the category by ID
-        public function get_product($parent_id)
-{
+    use GeneralTrait;       
+    public function get_product($parent_id)
+    {
     $categories = Category::where('parent_id', $parent_id)->get();
     $products = Product::whereIn('category_id', $categories->pluck('parent_id'))->paginate(10);
     if ($products->isEmpty()) {
         return $this->returnError('No Products Found',null,404);
     }
     return $this->returnData('',$products);
-
-}
-public function search(Request $request)
+    }
+    public function search(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
 
@@ -29,7 +28,8 @@ public function search(Request $request)
             ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
             ->get();
 
-        return response()->json($products);
+            return $this->returnData('',$products);
+
     }
 
 }

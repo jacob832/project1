@@ -31,7 +31,7 @@ class Login_LogoutController extends Controller
         }
         else
         {
-            return $this->returnError($validator->errors(),'Invalid username or password');
+            return $this->returnError($validator->errors(),'Invalid phone_number or password');
         }
     }
     

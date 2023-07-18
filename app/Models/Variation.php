@@ -15,6 +15,10 @@ protected $fillable=
     'quantity',
     'size',
 ];
+public function reviews()
+{
+    return $this->hasMany(Review::class);
+}
 public function discount()
     {
         return $this->hasMany(Discount::class);
@@ -50,10 +54,7 @@ public function discount()
     {
         return $this->hasMany(OrderItems::class);
     }
-    public function review()
-    {
-        return $this->hasMany(Review::class);
-    }
+   
     public function wishList()
     {
         return $this->belongsToMany(WishList::class,'wish_list_items');

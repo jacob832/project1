@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Product;
 use App\Models\CartItems;
 use App\Models\Variation;
-use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
-use App\Http\Requests\UpdateCartRequest;
 
 class CartController extends Controller
 {
@@ -47,9 +43,7 @@ class CartController extends Controller
         $cart = auth()->user()->cart;
         $variation = Variation::findOrFail($request->variation_id);
         $item = $cart->items()->where('variation_id', $variation->id)->first();
-
         if ($request->quantity > 0 && $request->quantity <= $variation->quantity) {
-
             if ($item) {
                 $item->quantity += $request->quantity;
                 $item->price = $item->quantity * $variation->price;
@@ -62,21 +56,14 @@ class CartController extends Controller
                 ]);
                 $cart->items()->save($item);
             }
-
-            
             $cartItems = $cart->items;
             $totalPrice = $cartItems->sum('price');
             $variation->decrement('quantity', $request->quantity);
-
             return $this->returnData('Product added to cart successfully', [
-                'cartItems' => $cartItems,
-                'totalPrice' => $totalPrice,
-            ]);
+                'cartItems' => $cartItems,'totalPrice' => $totalPrice]);
         } else {
             return $this->returnError(
-                'Quantity Error',
-                'Failed to add product to cart. The quantity requested is greater than the available quantity.'
-            );
+                'Quantity Error','Failed to add product to cart. ');
         }
     }
 
@@ -101,11 +88,8 @@ class CartController extends Controller
             public function destroy($id)
             {
                 $item = CartItems::findOrFail($id);
-        
                 $item->variation->increment('quantity', $item->quantity);
-        
                 $item->delete();
-        
                 $cart = auth()->user()->cart;
                 $cartItems = $cart->items;
                 $totalPrice = $cartItems->sum('price');

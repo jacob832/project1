@@ -16,7 +16,6 @@ class ProfileController extends Controller
     use GeneralTrait;
     public function updateProfile(Request $request)
     {
-
         $validateUser=Validator::make($request->all(), 
         [
                 'name' =>                  ['required', 'string', 'max:255'],
@@ -36,7 +35,7 @@ class ProfileController extends Controller
             $imagePath = $request['image']->store('public/images');
             $imagePath = str_replace('public/', '', $imagePath);
         }
-        $user = Auth::user(); // get the currently authenticated user
+        $user = Auth::user();
         $user->name           = $request->input('name');
         $user->password       = Hash::make($request->password);
         $user->phone_number   = $request->input('phone_number');

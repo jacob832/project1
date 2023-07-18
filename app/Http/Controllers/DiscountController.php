@@ -20,11 +20,7 @@ class DiscountController extends Controller
         if ($discounts->isEmpty()) {
             return $this->returnError('No Discounts Found',null,404);
         }
-        
-        return $this->returnData('',$discounts);
+            return $this->returnData('',$discounts);
 
-
-        
     }
-
 }

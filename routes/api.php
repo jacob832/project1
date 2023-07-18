@@ -12,6 +12,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\WishListItemsController;
@@ -39,8 +40,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('get_wishlist',[WishListController::class,'index']);
     Route::post('add_to_wishlist',[WishListController::class,'store']);
     Route::post('delete_item_wishlist',[WishListController::class,'destroy']);
-
-
+    Route::post('add_review/{variation_id}',[ReviewController::class,'store']);
+    Route::get('get_review/{variation_id}',[ReviewController::class,'index']);
 
     });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

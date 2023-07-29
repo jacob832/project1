@@ -21,4 +21,8 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+    public function isFavoriteByUser($userId)
+{
+    return $this->wishListItems()->where('user_id', $userId)->exists();
+}
 }

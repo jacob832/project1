@@ -128,5 +128,13 @@
                 </div>
             </div>
         </div>
+    
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+      <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+      var pusher = new Pusher('f0d0d0d85a95d9beda2b', {
+        cluster: 'mt1'
+      });
+    </script>
     </body>
 </html>

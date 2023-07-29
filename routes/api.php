@@ -42,8 +42,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('delete_item_wishlist',[WishListController::class,'destroy']);
     Route::post('add_review/{variation_id}',[ReviewController::class,'store']);
     Route::get('get_review/{variation_id}',[ReviewController::class,'index']);
-
     });
+    Route::post('add_product',[ProductController::class,'add_product']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

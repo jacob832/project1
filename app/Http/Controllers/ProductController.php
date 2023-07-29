@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Pusher\Pusher;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -31,5 +33,6 @@ class ProductController extends Controller
             return $this->returnData('',$products);
 
     }
-
+ 
+    
 }

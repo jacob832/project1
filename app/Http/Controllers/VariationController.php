@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Variation;
 use Illuminate\Http\Request;
 use App\Models\SystemSettings;
+=======
+>>>>>>> origin/master
 use App\Models\Product;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Requests\StoreVariationRequest;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 class VariationController extends Controller
 {
     use GeneralTrait;
@@ -59,6 +66,7 @@ class VariationController extends Controller
         
         return $this->returnData('', $products);}
 
+<<<<<<< HEAD
     public function create()
     {
         $products = \App\Models\Product::all();
@@ -118,3 +126,6 @@ class VariationController extends Controller
         // تنفيذ العمليات المطلوبة بعد الحذف بنجاح (مثل التوجيه أو إظهار رسالة)
     }
 }
+=======
+}
+>>>>>>> origin/master

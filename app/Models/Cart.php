@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
+<<<<<<< HEAD
     use HasFactory;
 
     protected $table = 'carts'; // اسم الجدول الذي تم تعريفه في قاعدة البيانات
@@ -15,6 +16,12 @@ class Cart extends Model
         'user_id',
         // يمكنك إضافة المزيد من الأعمدة الأخرى التي ترغب في إدخال قيم لها عند إنشاء سلة هنا
     ];
+=======
+    
+    use HasFactory;
+    protected $fillable = ['user_id'];
+
+>>>>>>> origin/master
     public function user()
     {
         return $this->belongsTo(User::class);

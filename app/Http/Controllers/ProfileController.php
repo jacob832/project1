@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\SystemSettings;
+=======
+>>>>>>> origin/master
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
@@ -16,6 +19,7 @@ use App\Http\Requests\UpdateProfileRequest;
 class ProfileController extends Controller
 {
     /**
+<<<<<<< HEAD
      * Display the user's profile form.
      */
     public function edit(Request $request): View
@@ -66,11 +70,17 @@ class ProfileController extends Controller
     }
 
     /**
+=======
+>>>>>>> origin/master
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function index1()
+=======
+    public function index()
+>>>>>>> origin/master
     {
         //
     }
@@ -80,7 +90,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function create1()
+=======
+    public function create()
+>>>>>>> origin/master
     {
         //
     }
@@ -91,7 +105,11 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\StoreProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function store1(StoreProfileRequest $request)
+=======
+    public function store(StoreProfileRequest $request)
+>>>>>>> origin/master
     {
         //
     }
@@ -102,7 +120,11 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function show1(Profile $profile)
+=======
+    public function show(Profile $profile)
+>>>>>>> origin/master
     {
         //
     }
@@ -113,7 +135,11 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function edit1(Profile $profile)
+=======
+    public function edit(Profile $profile)
+>>>>>>> origin/master
     {
         //
     }
@@ -125,7 +151,11 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function update1(UpdateProfileRequest $request, Profile $profile)
+=======
+    public function update(UpdateProfileRequest $request, Profile $profile)
+>>>>>>> origin/master
     {
         //
     }
@@ -136,7 +166,11 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function destroy1(Profile $profile)
+=======
+    public function destroy(Profile $profile)
+>>>>>>> origin/master
     {
         //
     }

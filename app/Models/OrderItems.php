@@ -9,8 +9,11 @@ class OrderItems extends Model
 {
     use HasFactory;
     protected $fillable=[
+<<<<<<< HEAD
         'variation_id',
         'order_id',
+=======
+>>>>>>> origin/master
         'price',
         'quantity',
         'total_price',

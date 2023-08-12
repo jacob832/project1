@@ -1,12 +1,21 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 namespace App\Http\Controllers;
 
 use Pusher\Pusher;
 use App\Models\User;
 use App\Models\Product;
+<<<<<<< HEAD
 use App\Models\Category; 
 use Illuminate\Http\Request;
 use App\Models\SystemSettings;
+=======
+use App\Models\Category;
+use Illuminate\Http\Request;
+>>>>>>> origin/master
 use App\Http\Traits\GeneralTrait;
 use App\Http\Requests\StoreProductRequest;
 
@@ -33,6 +42,7 @@ class ProductController extends Controller
             return $this->returnData('',$products);
 
     }
+<<<<<<< HEAD
 
     public function index()
     {
@@ -98,3 +108,8 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 }
+=======
+ 
+    
+}
+>>>>>>> origin/master

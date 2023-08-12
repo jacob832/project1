@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Color extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $table = 'colors';
 
@@ -17,6 +18,10 @@ class Color extends Model
     ];
 
     public $timestamps = true;
+=======
+    protected $fillable=['name','hex_code',];
+
+>>>>>>> origin/master
     public function variations()
     {
        return $this->hasMany(Variation::class);

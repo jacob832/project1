@@ -1,11 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Models\SystemSettings;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
 
+=======
+
+use App\Models\Category;
+use App\Http\Traits\GeneralTrait;
+
+
+>>>>>>> origin/master
 class CategoryController extends Controller
 {
     use GeneralTrait;
@@ -18,6 +26,7 @@ class CategoryController extends Controller
         else
         return $this->returnData('',['categories'=>$categories]);
 }
+<<<<<<< HEAD
     public function index()
     {
         $categories = Category::with('parent')->get();
@@ -77,4 +86,7 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
+=======
+
+>>>>>>> origin/master
 }

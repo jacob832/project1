@@ -13,12 +13,20 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+<<<<<<< HEAD
     public function register(): void
+=======
+    public function register()
+>>>>>>> origin/master
     {
         //
     }
 
+<<<<<<< HEAD
   /**
+=======
+    /**
+>>>>>>> origin/master
      * Bootstrap any application services.
      *
      * @return void

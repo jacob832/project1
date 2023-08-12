@@ -9,6 +9,7 @@ class Variation extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
     protected $table = 'variations';
 
     protected $fillable = [
@@ -21,6 +22,15 @@ class Variation extends Model
     ];
 
     public function reviews()
+=======
+protected $fillable=
+[
+    'price',
+    'quantity',
+    'size',
+];
+public function reviews()
+>>>>>>> origin/master
 {
     return $this->hasMany(Review::class);
 }
@@ -68,5 +78,8 @@ public function discount()
     {
         return $this->hasMany(WishListItems::class);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 }

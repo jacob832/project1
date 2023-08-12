@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Models;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+<<<<<<< HEAD
     protected $table = 'orders';
 
     protected $fillable = [
@@ -28,6 +33,19 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+=======
+    use HasFactory;
+    protected $fillable=['total_amount','status'];
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    } 
+    
+    public function address()
+    {
+        return $this->belongsTo(OrderAddress::class);
+>>>>>>> origin/master
     }
     public function variations()
     {
@@ -37,4 +55,8 @@ class Order extends Model
     {
         return $this->hasMany(OrderItems::class);
     }
+<<<<<<< HEAD
+=======
+     
+>>>>>>> origin/master
 }

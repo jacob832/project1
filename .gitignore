@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /.phpunit.cache
+=======
+>>>>>>> origin/master
 /node_modules
 /public/build
 /public/hot

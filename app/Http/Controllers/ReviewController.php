@@ -1,10 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\systemSettings;
+=======
+
+use App\Models\Review;
+use App\Models\Product;
+>>>>>>> origin/master
 use App\Models\Variation;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
@@ -12,6 +18,7 @@ use App\Http\Traits\GeneralTrait;
 
 class ReviewController extends Controller
 {
+<<<<<<< HEAD
 
     public function showReviewProducts()
     {
@@ -75,6 +82,9 @@ class ReviewController extends Controller
             return redirect()->back();
         }
         use GeneralTrait;
+=======
+    use GeneralTrait;
+>>>>>>> origin/master
     /**
      * Display a listing of the resource.
      *
@@ -167,7 +177,10 @@ class ReviewController extends Controller
     {
         //
     }
+<<<<<<< HEAD
     
     
 
+=======
+>>>>>>> origin/master
 }

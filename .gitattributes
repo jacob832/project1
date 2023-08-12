@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 * text=auto eol=lf
+=======
+* text=auto
+>>>>>>> origin/master
 
 *.blade.php diff=html
 *.css diff=css

@@ -3,12 +3,21 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Auth\Notifications\ResetPassword;
+=======
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+>>>>>>> origin/master
 
 class User extends Authenticatable
 {
@@ -20,14 +29,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+<<<<<<< HEAD
         'role_id',
         'name',
         'email',
+=======
+        'name',
+        'gender',
+>>>>>>> origin/master
         'password',
         'phone_number',
         'birth',
         'gender',
+<<<<<<< HEAD
         'image',
+=======
+        'image'
+>>>>>>> origin/master
     ];
 
     /**
@@ -47,7 +65,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+<<<<<<< HEAD
         'password' => 'hashed',
+=======
+>>>>>>> origin/master
     ];
     public function wishList()
     {
@@ -84,4 +105,8 @@ class User extends Authenticatable
                 $user->wishList()->create();
         });
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> origin/master
 }

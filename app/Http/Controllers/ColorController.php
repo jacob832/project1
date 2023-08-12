@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use App\Models\SystemSettings;
 use App\Models\Color;
 use Illuminate\Http\Request;
+=======
+
+use App\Models\Color;
+>>>>>>> origin/master
 use App\Http\Traits\GeneralTrait;
 
 class ColorController extends Controller
@@ -20,6 +25,7 @@ class ColorController extends Controller
         else
         return $this->returnData('',$colors);
     }
+<<<<<<< HEAD
     public function create()
     {
         $setting = SystemSettings::first();
@@ -52,3 +58,7 @@ class ColorController extends Controller
         return redirect()->route('colors.index')->with('success', 'Color deleted successfully.');
     }
 }
+=======
+    
+}
+>>>>>>> origin/master

@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+<<<<<<< HEAD
 use Illuminate\Support\ServiceProvider;
+=======
+>>>>>>> origin/master
 
 return [
 
@@ -155,9 +158,15 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'providers' => ServiceProvider::defaultProviders()->merge([
        
           /*
+=======
+    'providers' => [
+
+        /*
+>>>>>>> origin/master
          * Laravel Framework Service Providers...
          */
         Illuminate\Auth\AuthServiceProvider::class,
@@ -195,7 +204,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
     ])->toArray(),
+=======
+
+    ],
+>>>>>>> origin/master
 
     /*
     |--------------------------------------------------------------------------
@@ -209,7 +223,11 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+<<<<<<< HEAD
         // 'Example' => App\Facades\Example::class,
+=======
+        // 'ExampleClass' => App\Example\ExampleClass::class,
+>>>>>>> origin/master
     ])->toArray(),
 
 ];

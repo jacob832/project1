@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 
 namespace App\Http\Controllers;
 
@@ -175,18 +176,40 @@ class OrderController extends Controller
         return redirect()->route('orders.create');
     }
      /**
+=======
+namespace App\Http\Controllers;
+
+use App\Models\Order;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
+
+class OrderController extends Controller
+{
+    /**
+>>>>>>> origin/master
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
    
+=======
+    public function index()
+    {
+        //
+    }
+>>>>>>> origin/master
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function create1()
+=======
+    public function create()
+>>>>>>> origin/master
     {
         //
     }
@@ -197,7 +220,11 @@ class OrderController extends Controller
      * @param  \App\Http\Requests\StoreOrderRequest  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function store1(StoreOrderRequest $request)
+=======
+    public function store(StoreOrderRequest $request)
+>>>>>>> origin/master
     {
         //
     }
@@ -208,7 +235,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function show1(Order $order)
+=======
+    public function show(Order $order)
+>>>>>>> origin/master
     {
         //
     }
@@ -219,7 +250,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function edit1(Order $order)
+=======
+    public function edit(Order $order)
+>>>>>>> origin/master
     {
         //
     }
@@ -231,7 +266,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function update1(UpdateOrderRequest $request, Order $order)
+=======
+    public function update(UpdateOrderRequest $request, Order $order)
+>>>>>>> origin/master
     {
         //
     }
@@ -242,7 +281,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function destroy1(Order $order)
+=======
+    public function destroy(Order $order)
+>>>>>>> origin/master
     {
         //
     }

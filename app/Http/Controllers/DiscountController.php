@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Discount;
 use App\Models\SystemSettings;
 use Illuminate\Http\Request;
+=======
+>>>>>>> origin/master
 use App\Models\Product;
 use App\Http\Traits\GeneralTrait;
 
 class DiscountController extends Controller
 {
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/master
     use GeneralTrait;
 
     public function getDiscounts($id)
@@ -27,6 +33,7 @@ class DiscountController extends Controller
             return $this->returnData('',$discounts);
 
     }
+<<<<<<< HEAD
     // Display the list of discounts
     public function index()
     {
@@ -87,3 +94,6 @@ class DiscountController extends Controller
 
     }
 }
+=======
+}
+>>>>>>> origin/master

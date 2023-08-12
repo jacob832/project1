@@ -21,7 +21,10 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+<<<<<<< HEAD
         
+=======
+>>>>>>> origin/master
     ];
 
     /**
@@ -40,13 +43,19 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+<<<<<<< HEAD
            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,'throttle:api',
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+=======
+             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
+>>>>>>> origin/master
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 
     /**
+<<<<<<< HEAD
      * The application's middleware aliases.
      *
      * Aliases may be used instead of class names to conveniently assign middleware to routes and groups.
@@ -68,6 +77,8 @@ class Kernel extends HttpKernel
         'checkAdminRole' => \App\Http\Middleware\CheckAdminRole::class,
     ];
       /**
+=======
+>>>>>>> origin/master
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.

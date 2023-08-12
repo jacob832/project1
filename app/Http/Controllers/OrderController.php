@@ -1,6 +1,5 @@
 <?php
 
-// OrderController.php
 
 namespace App\Http\Controllers;
 
@@ -19,12 +18,49 @@ use App\Models\CartItems;
 use App\Models\Cart;
 use App\Models\OrderAddress;
 use App\Models\OrderItem;
+use App\Models\OrderItems;
 use dompdf\dompdf;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Traits\GeneralTrait;
+
 
 class OrderController extends Controller
 {
+    use GeneralTrait;
+
+    public function store(Request $request)
+{
+    $user = Auth::user();
+    $cart = $user->cart;
+    $cartItems = $user->cart->items;
+
+    $totalAmount = $cart->items->sum(function ($cartItem) {
+        return  $cartItem->price;
+    });
+    if ($user->address) {
+        $order = new Order([
+            'user_id' => $user->id,
+            'total_amount' => $totalAmount,
+            'order_address_id' => $user->address->id,
+            'status' => 'pending',
+        ]);
+        $order->save();
+        foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItems([
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->price,
+                'total_price' => $cartItem->price,
+                'variation_id' => $cartItem->variation_id,
+            ]);
+            $order->items()->save($orderItem);
+        }
+        $cart->items()->delete(); 
+        return $this->returnData('Order created successfully', ['order' => $order]);
+    } else {
+        return $this->returnData('User address not found', [], 400);
+    }
+}
     // عرض جميع الطلبيات
     public function index()
     {
@@ -143,10 +179,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+   
 
     /**
      * Show the form for creating a new resource.

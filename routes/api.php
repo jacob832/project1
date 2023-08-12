@@ -16,6 +16,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\WishListItemsController;
+use App\Http\Controllers\OrderController;
 
 Route::post('register', [RegisterController::class,'register']);
 Route::post('login',[Login_LogoutController::class,'login']);
@@ -42,6 +43,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('delete_item_wishlist',[WishListController::class,'destroy']);
     Route::post('add_review/{variation_id}',[ReviewController::class,'store']);
     Route::get('get_review/{variation_id}',[ReviewController::class,'index']);
+    Route::post('orders',[OrderController::class,'store']);
     });
     Route::post('add_product',[ProductController::class,'add_product']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
